@@ -13,6 +13,7 @@ class StudentBottoNavigation extends StatelessWidget {
       valueListenable: HomeScreen.selectedIndexNotifier ,
       builder: (BuildContext ctx, int updatedIndex, Widget?_){
         return BottomNavigationBar(
+          backgroundColor: Color.fromARGB(255, 233, 231, 231),
         currentIndex: updatedIndex,
         onTap: (newIndex){
           HomeScreen.selectedIndexNotifier.value = newIndex;
@@ -21,10 +22,10 @@ class StudentBottoNavigation extends StatelessWidget {
       [
         BottomNavigationBarItem(icon: Icon(Icons.home),
       label: 'Home'),
-      BottomNavigationBarItem(icon: Icon(Icons.category),
+      BottomNavigationBarItem(icon: Icon(Icons.people),
       label: 'Add')
-      ]
-      
+      ],
+      selectedItemColor: Colors.black,
       );
       },
     );

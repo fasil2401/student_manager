@@ -17,13 +17,13 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      backgroundColor: Colors.black,
       automaticallyImplyLeading: leadingback,
       title: title,
       centerTitle: centerTitle,
-      titleTextStyle: TextStyle(color: Colors.tealAccent, fontSize: 20),
-      // backgroundColor: Colors.blueAccent,
+      titleTextStyle: TextStyle(color: Color.fromARGB(255, 231, 229, 229), fontSize: 18),
       actions: actions,
-      iconTheme: IconThemeData(color: Colors.tealAccent),
+      iconTheme: IconThemeData(color: Color.fromARGB(255, 216, 218, 217)),
     );
   }
 
