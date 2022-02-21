@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:student_manager/dbFunctions/functions.dart';
+import 'package:student_manager/main.dart';
 import 'package:student_manager/screens/edit_details/edit.dart';
 import 'package:student_manager/screens/show_details/show_details.dart';
 import 'package:student_manager/models/dbmodel.dart';
@@ -66,7 +67,7 @@ class _ViewDetailsState extends State<ViewDetails> {
         title: cusSearchBar,
       ),
       body: ValueListenableBuilder(
-        valueListenable: Hive.box<DBModel>('studentDb').listenable(),
+        valueListenable: Hive.box<DBModel>(boxName).listenable(),
         builder: (context, Box<DBModel> newbox, _) {
           List key = newbox.keys.toList();
           if (key.isEmpty) {
@@ -93,7 +94,7 @@ class _ViewDetailsState extends State<ViewDetails> {
                         visualDensity: const VisualDensity(vertical: 2),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15)),
-                        tileColor: Color.fromARGB(255, 231, 231, 231),
+                        tileColor:const Color.fromARGB(255, 231, 231, 231),
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
                           builder: (ctx) => ShowDetails(

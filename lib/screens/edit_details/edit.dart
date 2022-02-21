@@ -5,13 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:student_manager/dbFunctions/functions.dart';
+import 'package:student_manager/main.dart';
 import 'package:student_manager/models/dbmodel.dart';
 import 'package:student_manager/screens/create_student/widgets/sized_custom.dart';
 import 'package:student_manager/screens/home/screen_home.dart';
 import 'package:student_manager/screens/view_details/view_list.dart';
 
 class EditDetails extends StatefulWidget {
-  var box = Hive.box<DBModel>('studentDb');
+  var box = Hive.box<DBModel>(boxName);
   final List<DBModel> student;
   final int index;
   EditDetails({Key? key, required this.student, required this.index})
@@ -288,7 +289,8 @@ class _EditDetailsState extends State<EditDetails> {
   void onSubmitButton() {
     // final path = image!.path;
     if (_formKey.currentState!.validate()) {
-      Box<DBModel> box = Hive.box('studentDb');
+      // Box<DBModel> box = Hive.box('studentDb');
+      print(_nameController.text);
       final _name = _nameController.text;
       final _age = _ageController.text;
       final _class = _classController.text;
@@ -296,10 +298,11 @@ class _EditDetailsState extends State<EditDetails> {
       if (_name.isEmpty || _age.isEmpty || _class.isEmpty || _place.isEmpty) {
         return;
       }
-      box.putAt(
+      widget.box.putAt(
           accesskey!,
           DBModel(
-              path: _path, name: _name, age: _age, std: _class, place: _place));
+              path: _path, name: _nameController.text, age: _ageController.text, std: _classController.text, place: _placeController.text));
+              
       Navigator.of(context).pop();
     }
   }

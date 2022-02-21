@@ -2,19 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:student_manager/models/dbmodel.dart';
 import 'package:student_manager/screens/splash_screen/splash.dart';
-
+const boxName = 'box_name';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-
-  if (!Hive.isAdapterRegistered(GenderAdapter().typeId)) {
-    Hive.registerAdapter(GenderAdapter());
-  }
-
-  if (!Hive.isAdapterRegistered(DBModelAdapter().typeId)) {
-    Hive.registerAdapter(DBModelAdapter());
-  }
-  Hive.openBox<DBModel>('studentDb');
+  Hive.registerAdapter(DBModelAdapter());
+  Hive.openBox<DBModel>(boxName);
   runApp(const MyApp());
 }
 

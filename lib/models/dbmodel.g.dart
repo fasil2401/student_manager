@@ -18,7 +18,7 @@ class DBModelAdapter extends TypeAdapter<DBModel> {
     };
     return DBModel(
       id: fields[0] as int?,
-      path: fields[1] as String,
+      path: fields[1] as dynamic,
       name: fields[2] as String,
       age: fields[3] as String,
       std: fields[4] as String,
@@ -54,50 +54,6 @@ class DBModelAdapter extends TypeAdapter<DBModel> {
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is DBModelAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
-}
-
-class GenderAdapter extends TypeAdapter<Gender> {
-  @override
-  final int typeId = 2;
-
-  @override
-  Gender read(BinaryReader reader) {
-    switch (reader.readByte()) {
-      case 0:
-        return Gender.male;
-      case 1:
-        return Gender.female;
-      case 2:
-        return Gender.other;
-      default:
-        return Gender.male;
-    }
-  }
-
-  @override
-  void write(BinaryWriter writer, Gender obj) {
-    switch (obj) {
-      case Gender.male:
-        writer.writeByte(0);
-        break;
-      case Gender.female:
-        writer.writeByte(1);
-        break;
-      case Gender.other:
-        writer.writeByte(2);
-        break;
-    }
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is GenderAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

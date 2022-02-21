@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:student_manager/dbFunctions/functions.dart';
+import 'package:student_manager/main.dart';
 import 'package:student_manager/screens/create_student/widgets/sized_custom.dart';
 import 'package:student_manager/models/dbmodel.dart';
 import 'package:student_manager/screens/home/screen_home.dart';
@@ -15,6 +17,7 @@ class Create extends StatefulWidget {
 }
 
 class _CreateState extends State<Create> {
+  var box = Hive.box<DBModel>(boxName);
   TextEditingController _nameController = TextEditingController();
   TextEditingController _ageController = TextEditingController();
   TextEditingController _classController = TextEditingController();
@@ -59,7 +62,7 @@ class _CreateState extends State<Create> {
                                     File(_imagePath),
                                     width: 150,
                                     height: 200,
-                                     fit: BoxFit.cover,
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
                           SizedBox(
@@ -99,8 +102,13 @@ class _CreateState extends State<Create> {
                                       );
                                     });
                               },
-                              style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.black),
-                              padding:MaterialStateProperty.all(EdgeInsets.symmetric(horizontal: 20,vertical: 10)),),
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all(Colors.black),
+                                padding: MaterialStateProperty.all(
+                                    EdgeInsets.symmetric(
+                                        horizontal: 20, vertical: 10)),
+                              ),
                               icon: Icon(Icons.add_a_photo),
                               label: Text('Upload Photo'))
                         ],
@@ -218,8 +226,13 @@ class _CreateState extends State<Create> {
                               //  File? _images = image;
                               onSubmitButton();
                             },
-                             style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.black),
-                              padding:MaterialStateProperty.all(EdgeInsets.symmetric(horizontal: 20,vertical: 10)),),
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.black),
+                              padding: MaterialStateProperty.all(
+                                  EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 10)),
+                            ),
                             icon: Icon(Icons.save_rounded),
                             label: Text('Save File')),
                       )
@@ -251,9 +264,15 @@ class _CreateState extends State<Create> {
         return;
       }
       snackBar(context);
-      final _student = DBModel(
-          name: _name, age: _age, std: _class, place: _place, path: _imagePath);
-      insertData(_student);
+      // final _student = DBModel(
+      //     name: _name, age: _age, std: _class, place: _place, path: _imagePath);
+      // insertData(_student);
+      box.add(DBModel(
+          path: _imagePath,
+          name: _nameController.text,
+          age: _ageController.text,
+          std: _classController.text,
+          place: _placeController.text));
       clearText();
     }
   }
@@ -264,7 +283,8 @@ class _CreateState extends State<Create> {
       action: SnackBarAction(
         label: 'Go',
         onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>HomeScreen()));
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (ctx) => HomeScreen()));
         },
       ),
     );

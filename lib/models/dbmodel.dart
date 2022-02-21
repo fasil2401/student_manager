@@ -1,16 +1,6 @@
-import 'dart:io';
 import 'package:hive_flutter/adapters.dart';
 part 'dbmodel.g.dart';
 
-@HiveType(typeId: 2)
-enum Gender {
-  @HiveField(0)
-  male,
-  @HiveField(1)
-  female,
-  @HiveField(2)
-  other
-}
 
 @HiveType(typeId: 1)
 class DBModel extends HiveObject {
